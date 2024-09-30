@@ -6,12 +6,17 @@ import Menu from './Components/Menu.tsx'
 import { Button } from '@nextui-org/react';
 import Mission from './Components/Mission.tsx'
 import Vision from './Components/Vision.tsx';
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import BackNext from './Components/backNext.tsx';
+import Card from './Components/Card.tsx';
 
 export default function Home() {
   
   const [tipo, setTipo] = React.useState(0);
+  const [isVisible, setIsVisible] = React.useState(true)
+  const [cardState, setCardState] = React.useState(0)
+  const textPlaceholder:string='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim  veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea  commodo consequat. '
+  
   React.useEffect(() => {
     const interval = setInterval(() => {
       setTipo(prev => {
@@ -29,21 +34,52 @@ export default function Home() {
         if (event.detail.message==='Next') {
           setIsVisible(false)
         }
-        else {
+        else if (event.detail.message==='Back') {
           setIsVisible(true)
+        }
+
+        if (event.detail.message==='NextNumber') {
+            setCardState(prevCardState => prevCardState + 1);
+          console.log(cardState)
+        } else if (event.detail.message==='BackNumber'){
+            setCardState(prevCardState => prevCardState - 1);
         }
     };
 
+
     window.addEventListener('nextClicked', handleEvent);
     window.addEventListener('backClicked', handleEvent);
+    window.addEventListener('nextClickedPlus', handleEvent);
+    window.addEventListener('backClickedMinus', handleEvent);
 
     return () => {
         window.removeEventListener('nextClicked', handleEvent);
         window.removeEventListener('backClicked', handleEvent);
+        window.removeEventListener('nextClickedPlus', handleEvent);
+        window.removeEventListener('backClickedMinus', handleEvent);
     };
   }, []);
 
-  const [isVisible, setIsVisible] = React.useState(true)
+
+  React.useEffect(()=> {
+    if (cardState==4) setCardState(0) 
+    if (cardState==-1) setCardState(3) 
+  }, [cardState])
+
+  const posCardActual = (cardState:number, currentCard:number) => {
+    if (currentCard === cardState) {
+      return { opacity: 1, translateX: 0 };
+    } 
+    else if (currentCard === cardState - 1) {
+      return { opacity: 0.5, translateX: -200 };
+    } 
+    else if (currentCard === cardState + 1) {
+      return { opacity: 0.5, translateX: 200 };
+    } 
+    else {
+      return { opacity: 0 };
+    }
+  };
 
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)] bg-white dark:bg-black">
@@ -86,25 +122,74 @@ export default function Home() {
           </div>
         </div>
         <div className='w-full flex items-center justify-center flex-row mt-96'>
-          <motion.div 
-            className={`absolute ${isVisible ? 'pointer-events-auto' : 'pointer-events-none'} w-9/12`}
-            animate={{ 
-              opacity: isVisible ? 1 : 0, 
-              translateX: isVisible ? 0 : -500
-            }} >
-            <Mission/>
-          </motion.div>
-            <motion.div 
-            className={`absolute ${isVisible ? 'pointer-events-none' : 'pointer-events-auto' } w-9/12`}
-              animate={{ 
-                opacity: isVisible ? 0 : 1, 
-                translateX: isVisible ? 500 : 0
-              }}>
-            <Vision/>
-          </motion.div>
+          <AnimatePresence>
+            {isVisible && (
+              <motion.div
+                className=' absolute w-9/12'
+                initial={{ opacity: 0, translateX: -500 }}
+                animate={{ opacity: 1, translateX: 0}}
+                exit={{ opacity: 0, translateX: -500  }}
+              > 
+                <Mission/>
+              </motion.div>
+            )}
+          </AnimatePresence>
+          <AnimatePresence>
+              {!isVisible && (
+                <motion.div
+                  className=' absolute w-9/12'
+                  initial={{ opacity: 0, translateX: 500 }}
+                  animate={{ opacity: 1, translateX: 0}}
+                  exit={{ opacity: 0, translateX: 500  }}
+                > 
+                  <Vision/>
+                </motion.div>
+              )}
+          </AnimatePresence>
         </div>
         <div className="flex items-center justify-center w-full mt-32">
-          <BackNext/>
+          <BackNext id={1}/>
+        </div>
+        <div className='flex items-center justify-center mt-[570px] w-full'>
+            <motion.div
+              className={`absolute w-2/5 ${cardState == 0 ? 'z-20' : 'z-10'}`}
+              initial={{ opacity: 0.5, translateX: -200 }}
+              animate={cardState==3 ? posCardActual(cardState, 4) : posCardActual (cardState, 0)}
+              transition={{type: "Tween", stiffness: 100}}
+              > 
+              <Card Titulo="TalentLand 2023" Imagen="/TalentLand2023.png" Descripcion={textPlaceholder}/>
+            </motion.div>
+
+            <motion.div
+              className={`absolute w-2/5 ${cardState == 1 ? 'z-20' : 'z-10'}`}
+              initial={{ opacity: 0.5, translateX: -200 }}
+              animate={posCardActual(cardState, 1)}
+              transition={{type: "Tween", stiffness: 100}}
+              > 
+            <Card Titulo="NASA Space Apps 2023" Imagen="/NASASpaceApps2023.jpeg" Descripcion={textPlaceholder}/>
+            </motion.div>
+
+            <motion.div
+              className={`absolute w-2/5 ${cardState == 2 ? 'z-20' : 'z-10'}`}
+              initial={{ opacity: 0.5, translateX: -200 }}
+              animate={posCardActual (cardState, 2)}
+              transition={{type: "Tween", stiffness: 100}}
+              > 
+              <Card Titulo="MediHacks 2023" Imagen="/Medihacks2023.jpg" Descripcion={textPlaceholder} />
+            </motion.div>
+
+            <motion.div
+              className={`absolute w-2/5 ${cardState == 3 ? 'z-20' : 'z-10'}`}
+              initial={{ opacity: 0.5, translateX: -200 }}
+              animate={cardState==0 ? posCardActual(cardState, -1) : posCardActual (cardState, 3)}
+              transition={{type: "Tween", stiffness: 100}}
+              > 
+              <Card Titulo="IEEEXtreme 2023" Imagen="/IEEEXtreme.jpg" Descripcion={textPlaceholder} />
+            </motion.div>
+
+        </div>
+        <div className="flex items-center justify-center w-full mt-72">
+          <BackNext id={2}/>
         </div>
       </main>
     </div>

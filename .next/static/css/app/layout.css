@@ -134,7 +134,7 @@ font-weight: 100 900;
   --tw-contain-paint:  ;
   --tw-contain-style:  ;
 }/*
-! tailwindcss v3.4.12 | MIT License | https://tailwindcss.com
+! tailwindcss v3.4.13 | MIT License | https://tailwindcss.com
 *//*
 1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
 2. Allow adding a border to an element by just adding a border-width. (https://github.com/tailwindcss/tailwindcss/pull/116)
@@ -755,6 +755,9 @@ video {
 .mb-3 {
   margin-bottom: 0.75rem;
 }
+.mb-4 {
+  margin-bottom: 1rem;
+}
 .mb-5 {
   margin-bottom: 1.25rem;
 }
@@ -794,8 +797,26 @@ video {
 .mt-5 {
   margin-top: 1.25rem;
 }
+.mt-72 {
+  margin-top: 18rem;
+}
 .mt-96 {
   margin-top: 24rem;
+}
+.mt-\[570px\] {
+  margin-top: 570px;
+}
+.-mt-4 {
+  margin-top: -1rem;
+}
+.-mb-4 {
+  margin-bottom: -1rem;
+}
+.-mr-4 {
+  margin-right: -1rem;
+}
+.-mr-8 {
+  margin-right: -2rem;
 }
 .box-border {
   box-sizing: border-box;
@@ -923,6 +944,33 @@ video {
 .h-screen {
   height: 100vh;
 }
+.h-\[1500px\] {
+  height: 1500px;
+}
+.h-44 {
+  height: 11rem;
+}
+.h-\[300px\] {
+  height: 300px;
+}
+.h-2\/5 {
+  height: 40%;
+}
+.h-4\/5 {
+  height: 80%;
+}
+.h-96 {
+  height: 24rem;
+}
+.h-32 {
+  height: 8rem;
+}
+.h-64 {
+  height: 16rem;
+}
+.h-80 {
+  height: 20rem;
+}
 .max-h-64 {
   max-height: 16rem;
 }
@@ -989,6 +1037,9 @@ video {
 .w-2\.5 {
   width: 0.625rem;
 }
+.w-2\/5 {
+  width: 40%;
+}
 .w-3 {
   width: 0.75rem;
 }
@@ -1054,6 +1105,33 @@ video {
 }
 .w-screen {
   width: 100vw;
+}
+.w-\[300px\] {
+  width: 300px;
+}
+.w-44 {
+  width: 11rem;
+}
+.w-\[1500px\] {
+  width: 1500px;
+}
+.w-\[1000px\] {
+  width: 1000px;
+}
+.w-\[500px\] {
+  width: 500px;
+}
+.w-\[540px\] {
+  width: 540px;
+}
+.w-\[550px\] {
+  width: 550px;
+}
+.w-3\/5 {
+  width: 60%;
+}
+.w-11\/12 {
+  width: 91.666667%;
 }
 .min-w-10 {
   min-width: 2.5rem;
@@ -1516,6 +1594,9 @@ video {
 .rounded {
   border-radius: 0.25rem;
 }
+.rounded-2xl {
+  border-radius: 1rem;
+}
 .rounded-\[calc\(theme\(borderRadius\.large\)\/1\.5\)\] {
   border-radius: calc(var(--nextui-radius-large) / 1.5);
 }
@@ -1911,6 +1992,18 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
+.bg-zinc-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(82 82 91 / var(--tw-bg-opacity));
+}
+.bg-zinc-800 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(39 39 42 / var(--tw-bg-opacity));
+}
+.bg-zinc-900 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(24 24 27 / var(--tw-bg-opacity));
+}
 .bg-stripe-gradient {
   background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.1) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, 0.1) 50%, rgba(0, 0, 0, 0.1) 75%, transparent 75%, transparent);
 }
@@ -1946,6 +2039,9 @@ video {
 }
 .p-4 {
   padding: 1rem;
+}
+.p-7 {
+  padding: 1.75rem;
 }
 .p-8 {
   padding: 2rem;
@@ -2619,6 +2715,11 @@ video {
 }
 .transition-transform {
   transition-property: transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 250ms;
+}
+.transition {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 250ms;
 }
