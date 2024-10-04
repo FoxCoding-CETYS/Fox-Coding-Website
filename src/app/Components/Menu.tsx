@@ -9,15 +9,27 @@ const secciones:string[] = [
     'Sponsors',
     'Contact'
 ]
-
-
 export default function menu () {
-    const [marcado, setMarcado]= React.useState(true)
+    const [actual, setActual] = React.useState(0)
+
+    React.useEffect(() => {
+        const handleEvent = (event:any) => {
+            setActual(parseInt(event.detail.message))
+            console.log('Evento capturado:', event.detail.message);
+        };
+        window.addEventListener('actual', handleEvent);
+        
+        return () => {
+            window.removeEventListener('actual', handleEvent);
+        };
+    }, []);
+
+
     const seccionesMenu = secciones.map
     ((seccion, key) => 
         <div key={key} className="text-black dark:text-white">
-            {marcado ?  
-            <button className="font font-light text-xl mb-3 ">
+            {actual===key ?  
+            <button className="font text-xl mb-3 text-yellow-400 font-bold ">
                 {seccion}
             </button>
             : 

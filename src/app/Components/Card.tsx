@@ -1,4 +1,3 @@
-import { Button } from "@nextui-org/react"
 import Image from 'next/image'
 import GitHubLogo from './../../../public/github-mark'
 interface Props {
@@ -8,7 +7,7 @@ interface Props {
 }
 export default function Card({ Titulo, Imagen, Descripcion }: Props) {
     return (
-        <div className={`p-7 bg-zinc-800 rounded-2xl flex-col`} >
+        <div className={`p-7 dark:bg-zinc-900 bg-white rounded-2xl flex-col `} >
             <div className=" text-black dark:text-[#FFD850] text-2xl mb-4 font-bold">
                 {Titulo}
             </div>

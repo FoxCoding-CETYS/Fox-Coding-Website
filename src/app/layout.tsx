@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import ThemeProvider from "./Components/theme-provider.tsx"
 import { NextUIProvider } from "@nextui-org/react";
+import Footer from "./Components/Footer.tsx";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -28,17 +29,24 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-transparent w-full flex-col justify-center `}
       >
-        <NextUIProvider>
-          <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange>
-            {children}
-          </ThemeProvider>
-        </NextUIProvider>
+        <div className="w-screen justify-center flex">
+          <NextUIProvider>
+            <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange>
+              {children}
+            </ThemeProvider>
+          </NextUIProvider>
+        </div>
+        <div className="w-screen bg-black justify-center flex">
+          <div className="max-w-[1400px] w-full flex">
+            <Footer/>
+          </div>
+        </div>
       </body>
     </html>
   );
